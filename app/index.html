@@ -3,20 +3,99 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cover Snap</title>
+<title>Neon Coast — Cover Studio</title>
 <link rel="stylesheet" href="./style.css">
 </head>
 <body>
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true">NC</span>
+    <div>
+      <h1>Neon Coast <span>Cover Studio</span></h1>
+      <p>Your photos, made into sunset cover art. Runs fully offline — nothing ever leaves this machine.</p>
+    </div>
+  </div>
+  <p class="topbar-note">Multi-panel poster covers &middot; 1080&times;1080 &middot; 1080&times;1350 &middot; 1920&times;1080</p>
+</header>
+
 <main class="app">
-  <section class="controls">
-    <h1>Cover Snap</h1>
-    <p>A photo and a caption, made into a square cover.</p>
-    <label>Photo <input id="photo" type="file" accept="image/*"></label>
-    <label>Caption <input id="caption" type="text" maxlength="40" value="Sunset Heist"></label>
-    <button id="export" type="button">Export PNG 1080 x 1080</button>
-    <p id="status" role="status"></p>
+  <section class="controls" aria-label="Cover controls">
+    <fieldset>
+      <legend>Photos</legend>
+      <label class="file-btn">Add photos
+        <input id="photo" type="file" accept="image/*" multiple>
+      </label>
+      <div class="samples" role="group" aria-label="Sample photos">
+        <button id="sample-boulevard" type="button">Sample: Boulevard</button>
+        <button id="sample-pier" type="button">Sample: Pier</button>
+      </div>
+      <p class="hint">Click a panel in the preview to select it, drag to move its photo, use the zoom slider to crop it.</p>
+      <label>Selected panel photo
+        <select id="panel-photo"></select>
+      </label>
+      <label>Zoom <span id="zoom-value">100%</span>
+        <input id="zoom" type="range" min="100" max="300" value="100">
+      </label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Layout</legend>
+      <div class="choice-row" id="layout-row" role="group" aria-label="Layout">
+        <button type="button" data-layout="full" class="active">Full bleed</button>
+        <button type="button" data-layout="grid">Four panel</button>
+        <button type="button" data-layout="hero">Hero + three</button>
+        <button type="button" data-layout="tilt">Snapshots</button>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Colour grade</legend>
+      <div class="choice-row" id="grade-row" role="group" aria-label="Colour grade">
+        <button type="button" data-grade="sunset" class="active">Sunset</button>
+        <button type="button" data-grade="neon">Neon night</button>
+        <button type="button" data-grade="teal">Teal heat</button>
+        <button type="button" data-grade="noir">Noir</button>
+        <button type="button" data-grade="gold">Palm gold</button>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Lettering</legend>
+      <label>Title <input id="title" type="text" maxlength="24" value="NEON COAST"></label>
+      <label>Subtitle <input id="subtitle" type="text" maxlength="40" value="midnight run"></label>
+      <label>Badge <input id="badge" type="text" maxlength="16" value="EST. 2026"></label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Finish</legend>
+      <label>Frame
+        <select id="frame">
+          <option value="white" selected>White border</option>
+          <option value="black">Black border</option>
+          <option value="none">No border</option>
+        </select>
+      </label>
+      <label class="check"><input id="grain" type="checkbox" checked> Film grain</label>
+      <label class="check"><input id="vignette" type="checkbox" checked> Vignette</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Export size</legend>
+      <div class="choice-row" id="size-row" role="group" aria-label="Export size">
+        <button type="button" data-size="1080x1080" class="active">1080 &times; 1080</button>
+        <button type="button" data-size="1080x1350">1080 &times; 1350</button>
+        <button type="button" data-size="1920x1080">1920 &times; 1080</button>
+      </div>
+      <button id="export" type="button" class="primary">Export PNG</button>
+      <button id="export-all" type="button">Export all three sizes</button>
+      <p id="status" role="status"></p>
+    </fieldset>
   </section>
-  <canvas id="cover" width="1080" height="1080" aria-label="The cover"></canvas>
+
+  <section class="stage" aria-label="Cover preview">
+    <canvas id="cover" width="1080" height="1080" aria-label="The cover preview"></canvas>
+    <p class="stage-note">Live preview &mdash; what you see is what exports.</p>
+  </section>
 </main>
 <script type="module" src="./src/main.js"></script>
 </body>
